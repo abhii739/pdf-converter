@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Scan2PDF</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <h1>Scan2PDF</h1>
+      <p>Capture documents and turn every photo into a PDF page.</p>
+    </div>
+    <button id="clearBtn" class="ghost" type="button">Clear</button>
+  </header>
+
+  <main class="container">
+    <section class="scanner-card">
+      <div class="camera-area">
+        <video id="camera" autoplay playsinline muted></video>
+        <canvas id="canvas" hidden></canvas>
+        <div id="cameraPlaceholder" class="camera-placeholder">
+          <div class="camera-icon">📷</div>
+          <h2>Ready to scan</h2>
+          <p>Allow camera access, point at a document, then capture.</p>
+        </div>
+        <div class="camera-frame" aria-hidden="true"></div>
+      </div>
+
+      <div class="camera-actions">
+        <button id="startCameraBtn" class="secondary" type="button">Start Camera</button>
+        <button id="captureBtn" class="capture" type="button" disabled>
+          <span class="capture-dot"></span> Capture Page
+        </button>
+        <label class="upload secondary">
+          Upload Photo
+          <input id="fileInput" type="file" accept="image/*" multiple>
+        </label>
+      </div>
+
+      <p id="status" class="status">No pages captured yet.</p>
+    </section>
+
+    <section class="pages-section">
+      <div class="section-heading">
+        <div>
+          <h2>PDF Pages</h2>
+          <p id="pageCount">0 pages</p>
+        </div>
+        <button id="downloadBtn" class="primary" type="button" disabled>
+          Download PDF
+        </button>
+      </div>
+
+      <div id="pages" class="pages-grid"></div>
+
+      <div id="emptyState" class="empty-state">
+        <div>📄</div>
+        <h3>Your scanned pages will appear here</h3>
+        <p>Capture pages in order. You can remove or reorder them before creating the PDF.</p>
+      </div>
+    </section>
+  </main>
+
+  <div id="toast" class="toast"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.2/jspdf.umd.min.js"></script>
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
